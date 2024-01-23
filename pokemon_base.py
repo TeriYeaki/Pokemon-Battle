@@ -51,12 +51,12 @@ class PokemonBase(ABC):
             raise ValueError("New HP must be non-negative.")
         self.hp = new_hp
 
-    def lose_hp(self, lose_hp: float) -> None:
+    def lose_hp(self, lose_hp: int) -> None:
         """
         Reduces the Pokemon's HP.
 
         Args:
-            lose_hp (float): The amount of HP to be reduced.
+            lose_hp (int): The amount of HP to be reduced.
 
         Raises:
             ValueError: If lose_hp is negative.
@@ -131,13 +131,6 @@ class PokemonBase(ABC):
     @abstractmethod
     def get_speed(self) -> int:
         """Return the speed of the Pokemon. Abstract method. Complexity: O(1)"""
-        pass
-
-    @abstractmethod
-    def get_type_effectiveness(self, opponent_type: str) -> float:
-        """
-        Get the type effectiveness based on the opponent's type. Abstract method. Complexity: Depends on implementation.
-        """
         pass
 
     @abstractmethod
