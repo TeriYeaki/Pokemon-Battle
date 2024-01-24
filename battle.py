@@ -13,13 +13,17 @@ class Battle:
 
     def set_mode_battle(self) -> str:
         """Set the default mode for the pokemon battle"""
-        return self.start_battle(0)
+        return self._start_battle(0)
 
     def rotating_mode_battle(self) -> str:
         """Set the rotating mode for the pokemon battle"""
-        return self.start_battle(1)
+        return self._start_battle(1)
 
-    def start_battle(self, battle_mode: int) -> str:
+    def optimised_mode_battle(self, criterion_team1: str, criterion_team2: str) -> str:
+        """Set optimised mode for pokemon battle"""
+        return self._start_battle(2, criterion_team1, criterion_team2)
+
+    def _start_battle(self, battle_mode: int, criterion_team1: str = None, criterion_team2: str = None) -> str:
         """Begin battle sequence"""
 
         # Validate team composition
@@ -31,8 +35,8 @@ class Battle:
             raise ValueError("Invalid battle mode. Please select 0, 1, or 2")
 
         # initiate battle mode
-        self.trainer1.choose_team(battle_mode)
-        self.trainer2.choose_team(battle_mode)
+        self.trainer1.choose_team(battle_mode, criterion_team1)
+        self.trainer2.choose_team(battle_mode, criterion_team2)
         round_num = 1
 
         # continue the fight until all pokemon from one team is fainted

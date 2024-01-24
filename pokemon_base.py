@@ -28,6 +28,7 @@ class PokemonBase(ABC):
         self.hp = hp
         self.poke_type = poke_type.lower()
         self.level = 1
+        self.key = None
 
     def get_hp(self) -> int:
         """Return the HP of the Pokemon. Complexity: O(1)"""
@@ -156,3 +157,39 @@ class PokemonBase(ABC):
     def __str__(self) -> str:
         """Return a string representation of the Pokemon. Abstract method. Complexity: O(1)"""
         pass
+
+    def set_key(self, key: str) -> None:
+        """
+        Sets a key for sorting the Pokemon team based on various attributes.
+
+        Args:
+            key (str): A string representing the sorting category (e.g., 'lvl', 'hp').
+
+        Raises:
+            ValueError: If the key is not a valid sorting category.
+
+        Complexity:
+            Time: O(1)
+            Space: O(1)
+        """
+        valid_keys = ["lvl", "hp", "attack", "defence", "speed"]
+        key = key.lower()
+
+        if key not in valid_keys:
+            raise ValueError(f"Invalid key. Must be one of {valid_keys}")
+
+        # Set the key based on the category
+        self.key = getattr(self, f"get_{key}")()
+
+    def get_key(self) -> int:
+        """
+        Returns the key used for sorting.
+
+        Returns:
+            int: The sorting key value.
+
+        Complexity:
+            Time: O(1)
+            Space: O(1)
+        """
+        return self.key

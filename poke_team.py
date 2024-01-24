@@ -103,12 +103,33 @@ class PokeTeam:
                 for _ in range(squir):
                     self.team.append(Squirtle())
 
+        if self.battle_mode == 2:
+            self.team = ArraySortedList(total_pokemon)
+            if charm > 0:
+                for _ in range(charm):
+                    charmander = Charmander()
+                    charmander.set_key(self.criterion)
+                    self.team.add(ListItem(charmander, charmander.get_key()))
+            if bulb > 0:
+                for _ in range(bulb):
+                    bulbasaur = Bulbasaur()
+                    bulbasaur.set_key(self.criterion)
+                    self.team.add(ListItem(bulbasaur, bulbasaur.get_key()))
+            if squir > 0:
+                for _ in range(squir):
+                    squirtle = Squirtle()
+                    squirtle.set_key(self.criterion)
+                    self.team.add(ListItem(squirtle, squirtle.get_key()))
+
     def get_fighter(self) -> PokemonBase:
         """Retrieve the fighter from the team"""
         if self.battle_mode == 0:
             return self.team.pop()
         elif self.battle_mode == 1:
             return self.team.serve()
+        elif self.battle_mode == 2:
+            fighter_item = self.team.delete_at_index(0)
+            return fighter_item.value
         else:
             raise ValueError("Invalid battle mode. Please input integer 0, 1, or 2.")
 
@@ -118,6 +139,8 @@ class PokeTeam:
             self.team.push(fighter)
         if self.battle_mode == 1:
             self.team.append(fighter)
+        elif self.battle_mode == 2:
+            self.team.add(ListItem(fighter, fighter.get_key()))
         else:
             raise ValueError("Invalid battle mode. Please input integer 0, 1, or 2.")
 
@@ -157,5 +180,10 @@ class PokeTeam:
             # append the member back into the team queue
             while not temp_queue.is_empty():
                 self.team.append(temp_queue.serve())
+
+        elif self.battle_mode == 2:
+            # get the member info from the team
+            for index in range(len(self.team)):
+                member_details.append(str(self.team[index]))
 
         return ", ".join(member_details) + "\n"
