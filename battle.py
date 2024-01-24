@@ -15,6 +15,10 @@ class Battle:
         """Set the default mode for the pokemon battle"""
         return self.start_battle(0)
 
+    def rotating_mode_battle(self) -> str:
+        """Set the rotating mode for the pokemon battle"""
+        return self.start_battle(1)
+
     def start_battle(self, battle_mode: int) -> str:
         """Begin battle sequence"""
 

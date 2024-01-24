@@ -1,4 +1,9 @@
+from pokemon import Charmander, Bulbasaur, Squirtle
 from pokemon_base import PokemonBase
+from array_sorted_list import ArraySortedList
+from stack_adt import ArrayStack
+from queue_adt import CircularQueue
+from sorted_list import ListItem
 
 
 class PokeTeam:
@@ -86,10 +91,24 @@ class PokeTeam:
                 for _ in range(charm):
                     self.team.push(Charmander())
 
+        if self.battle_mode == 1:
+            self.team = CircularQueue(total_pokemon)
+            if charm > 0:
+                for _ in range(charm):
+                    self.team.append(Charmander())
+            if bulb > 0:
+                for _ in range(bulb):
+                    self.team.append(Bulbasaur())
+            if squir > 0:
+                for _ in range(squir):
+                    self.team.append(Squirtle())
+
     def get_fighter(self) -> PokemonBase:
         """Retrieve the fighter from the team"""
         if self.battle_mode == 0:
             return self.team.pop()
+        elif self.battle_mode == 1:
+            return self.team.serve()
         else:
             raise ValueError("Invalid battle mode. Please input integer 0, 1, or 2.")
 
@@ -97,6 +116,8 @@ class PokeTeam:
         """Return fighter back to the team based on the team data structure"""
         if self.battle_mode == 0:
             self.team.push(fighter)
+        if self.battle_mode == 1:
+            self.team.append(fighter)
         else:
             raise ValueError("Invalid battle mode. Please input integer 0, 1, or 2.")
 
@@ -124,5 +145,17 @@ class PokeTeam:
                 self.team.push(temp_array.pop())
             # reverse the order of the member details
             member_details.reverse()
+
+        elif self.battle_mode == 1:
+            # create temp queue to store the member after serving
+            temp_queue = CircularQueue(len(self.team))
+            # serve the member and get info then append to temp queue
+            while not self.team.is_empty():
+                pokemon = self.team.serve()
+                member_details.append(str(pokemon))
+                temp_queue.append(pokemon)
+            # append the member back into the team queue
+            while not temp_queue.is_empty():
+                self.team.append(temp_queue.serve())
 
         return ", ".join(member_details) + "\n"
