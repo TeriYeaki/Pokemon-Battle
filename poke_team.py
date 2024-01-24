@@ -73,7 +73,18 @@ class PokeTeam:
     def assign_team(self, charm: int, bulb: int, squir: int) -> None:
         """Populates the team based on the ADT that is chosen for the battle mode"""
 
-        pass
+        total_pokemon = charm + bulb + squir
+        if self.battle_mode == 0:
+            self.team = ArrayStack(total_pokemon)
+            if squir > 0:
+                for _ in range(squir):
+                    self.team.push(Squirtle())
+            if bulb > 0:
+                for _ in range(bulb):
+                    self.team.push(Bulbasaur())
+            if charm > 0:
+                for _ in range(charm):
+                    self.team.push(Charmander())
 
     def get_fighter(self) -> PokemonBase:
         """Retrieve the fighter from the team"""
@@ -92,4 +103,26 @@ class PokeTeam:
     def __str__(self) -> str:
         """Print the string details of team based on the team data structure"""
 
-        pass
+        if self.team.is_empty():
+            return "No Pokemon in team."
+
+        if self.team is None:
+            return "Pokemon team is not initialised."
+
+        member_details = []
+
+        if self.battle_mode == 0:
+            # create temp array to store the member after popping
+            temp_array = ArrayStack(len(self.team))
+            # pop the member and get info then push to temp array
+            while not self.team.is_empty():
+                pokemon = self.team.pop()
+                member_details.append(str(pokemon))
+                temp_array.push(pokemon)
+            # push the member back into the team array
+            while not temp_array.is_empty():
+                self.team.push(temp_array.pop())
+            # reverse the order of the member details
+            member_details.reverse()
+
+        return ", ".join(member_details) + "\n"
