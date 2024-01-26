@@ -48,7 +48,7 @@ class Charmander(PokemonBase):
         """
         return self.speed
 
-    def is_attacked_by(self, damage_received: int) -> None:
+    def is_attacked_by(self, damage_received: int) -> int:
         """
         Process the damage received by the Pokemon from an attack.
 
@@ -61,8 +61,10 @@ class Charmander(PokemonBase):
         """
         if damage_received > self.defence:
             super().set_hp(self.hp - damage_received)
+            return damage_received
         else:
             super().set_hp(self.hp - damage_received // 2)
+            return damage_received // 2
 
     def get_attack_damage(self, opponent_type: str) -> int:
         """
@@ -165,7 +167,7 @@ class Bulbasaur(PokemonBase):
         """
         return self.speed
 
-    def is_attacked_by(self, damage_received: int) -> None:
+    def is_attacked_by(self, damage_received: int) -> int:
         """
         Process the damage received by the Pokemon from an attack.
 
@@ -178,8 +180,10 @@ class Bulbasaur(PokemonBase):
         """
         if damage_received > self.defence + 5:
             super().set_hp(self.hp - damage_received)
+            return damage_received
         else:
             super().set_hp(self.hp - damage_received // 2)
+            return damage_received // 2
 
     def get_attack_damage(self, opponent_type: str) -> int:
         """
@@ -282,7 +286,7 @@ class Squirtle(PokemonBase):
         """
         return self.speed
 
-    def is_attacked_by(self, damage_received: int) -> None:
+    def is_attacked_by(self, damage_received: int) -> int:
         """
         Process the damage received by the Pokemon from an attack.
 
@@ -295,8 +299,10 @@ class Squirtle(PokemonBase):
         """
         if damage_received > self.defence * 2:
             super().set_hp(self.hp - damage_received)
+            return damage_received
         else:
             super().set_hp(self.hp - damage_received // 2)
+            return damage_received // 2
 
     def get_attack_damage(self, opponent_type: str) -> int:
         """

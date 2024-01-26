@@ -140,7 +140,7 @@ class PokemonBase(ABC):
         pass
 
     @abstractmethod
-    def is_attacked_by(self, damage_received: int) -> None:
+    def is_attacked_by(self, damage_received: int) -> int:
         """Process damage received by the Pokemon. Abstract method. Complexity: Depends on implementation."""
         pass
 

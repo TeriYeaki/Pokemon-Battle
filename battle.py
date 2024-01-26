@@ -59,16 +59,16 @@ class Battle:
 
             # Fight Battle
             if t1_pokemon.get_speed() == t2_pokemon.get_speed():
-                self._perform_attack(t1_pokemon, t2_pokemon)
-                self._perform_attack(t2_pokemon, t1_pokemon)
+                t1_final_damage = self._perform_attack(t1_pokemon, t2_pokemon)
+                t2_final_damage = self._perform_attack(t2_pokemon, t1_pokemon)
             elif t1_pokemon.get_speed() > t2_pokemon.get_speed():
-                self._perform_attack(t1_pokemon, t2_pokemon)
+                t1_final_damage = self._perform_attack(t1_pokemon, t2_pokemon)
                 if not t2_pokemon.is_fainted():
-                    self._perform_attack(t2_pokemon, t1_pokemon)
+                    t2_final_damage = self._perform_attack(t2_pokemon, t1_pokemon)
             else:
-                self._perform_attack(t2_pokemon, t1_pokemon)
+                t2_final_damage = self._perform_attack(t2_pokemon, t1_pokemon)
                 if not t1_pokemon.is_fainted():
-                    self._perform_attack(t1_pokemon, t2_pokemon)
+                    t1_final_damage = self._perform_attack(t1_pokemon, t2_pokemon)
 
             # Both lose 1 hp if both are still alive
             if not t1_pokemon.is_fainted() and not t2_pokemon.is_fainted():
@@ -80,8 +80,9 @@ class Battle:
                 self.trainer1.return_fighter(t1_pokemon)
                 self.trainer2.return_fighter(t2_pokemon)
                 print(
-                    f"Round {round_num}: {self.trainer1.get_name()}'s {t1_pokemon.get_name()} fight " +
-                    f"{self.trainer2.get_name()}'s {t2_pokemon.get_name()} and they and both live")
+                    f"Round {round_num}: {self.trainer1.get_name()}'s {t1_pokemon.get_name()} attack " +
+                    f"{self.trainer2.get_name()}'s {t2_pokemon.get_name()} and loses {t2_final_damage} HP while" +
+                    f" {self.trainer2.get_name()}'s {t2_pokemon.get_name()} loses {t1_final_damage} HP")
             elif t1_pokemon.is_fainted():
                 self._pokemon_lvlup_and_return(t2_pokemon, self.trainer2)
                 print(
@@ -95,11 +96,11 @@ class Battle:
             round_num += 1
 
     @staticmethod
-    def _perform_attack(attacker: PokemonBase, defender: PokemonBase) -> None:
+    def _perform_attack(attacker: PokemonBase, defender: PokemonBase) -> int:
         """Get the attack damage and process the attack"""
         try:
             attack_damage = attacker.get_attack_damage(defender.get_poke_type())
-            defender.is_attacked_by(attack_damage)
+            return defender.is_attacked_by(attack_damage)
         except Exception as e:
             raise Exception(f"An error occurred during attack: {e}")
 
