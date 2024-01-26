@@ -140,7 +140,7 @@ class PokeTeam:
         elif self.battle_mode == 1:
             self.team.append(fighter)
         elif self.battle_mode == 2:
-            fighter.update_key(self.criterion)
+            fighter.set_key(self.criterion)
             self.team.add(ListItem(fighter, fighter.get_key()))
         else:
             raise ValueError("Invalid battle mode. Please input integer 0, 1, or 2.")

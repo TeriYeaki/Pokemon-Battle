@@ -194,13 +194,6 @@ class PokemonBase(ABC):
         pokemon_priority_map = {"Charmander": 3, "Bulbasaur": 2, "Squirtle": 1, }
         self.key = (primary_key * 10 + pokemon_priority_map[self.get_name()]) * -1
 
-    def update_key(self, criterion: str) -> None:
-        """
-        Updates the key value based on the current criterion.
-        :return:
-        """
-        self.set_key(criterion)
-
     def get_key(self) -> int:
         """
         Returns the key used for sorting.
