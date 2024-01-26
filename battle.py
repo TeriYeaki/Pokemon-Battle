@@ -44,11 +44,11 @@ class Battle:
 
             # set the battle ending condition
             if self.trainer1.is_empty() and self.trainer2.is_empty():
-                return "Battle ended: It's a draw."
+                return "Draw"
             elif self.trainer1.is_empty():
-                return f"Battle ended: {self.trainer2.get_name()} wins."
+                return self.trainer2.get_name()
             elif self.trainer2.is_empty():
-                return f"Battle ended: {self.trainer1.get_name()} wins."
+                return self.trainer1.get_name()
 
             # Assign current round fighter
             t1_pokemon = self.trainer1.get_fighter()
@@ -77,8 +77,8 @@ class Battle:
 
             # Process the battle aftermath
             if not t1_pokemon.is_fainted() and not t2_pokemon.is_fainted():
-                self._pokemon_lvlup_and_return(t1_pokemon, self.trainer1)
-                self._pokemon_lvlup_and_return(t2_pokemon, self.trainer2)
+                self.trainer1.return_fighter(t1_pokemon)
+                self.trainer2.return_fighter(t2_pokemon)
                 print(
                     f"Round {round_num}: {self.trainer1.get_name()}'s {t1_pokemon.get_name()} fight " +
                     f"{self.trainer2.get_name()}'s {t2_pokemon.get_name()} and they and both live")
