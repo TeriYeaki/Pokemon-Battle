@@ -24,7 +24,6 @@ class Battle:
         """
         self.trainer1 = PokeTeam(trainer_one_name)
         self.trainer2 = PokeTeam(trainer_two_name)
-        self.winner = None
 
     def set_mode_battle(self) -> str:
         """
