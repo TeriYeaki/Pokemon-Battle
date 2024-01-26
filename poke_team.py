@@ -55,8 +55,8 @@ class PokeTeam:
             try:
                 # Ask for input
                 team_input = input(f"Howdy {self.trainer_name}! Choose your team as C B S\n"
-                                   "where C is the number of Charmanders, "
-                                   "      B is the number of Bulbasaurs, "
+                                   "where C is the number of Charmanders,\n"
+                                   "      B is the number of Bulbasaurs,\n"
                                    "      S is the number of Squirtles\n> ").strip()
 
                 # Parse and validate input
@@ -137,7 +137,7 @@ class PokeTeam:
         """Return fighter back to the team based on the team data structure"""
         if self.battle_mode == 0:
             self.team.push(fighter)
-        if self.battle_mode == 1:
+        elif self.battle_mode == 1:
             self.team.append(fighter)
         elif self.battle_mode == 2:
             self.team.add(ListItem(fighter, fighter.get_key()))
