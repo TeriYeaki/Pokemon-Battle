@@ -78,13 +78,17 @@ class Charmander(PokemonBase):
             Time: O(1)
             Space: O(1)
         """
-        type_effectiveness = 1
+
         if opponent_type == "fire":
             type_effectiveness = 1
         elif opponent_type == "water":
             type_effectiveness = 0.5
         elif opponent_type == "grass":
             type_effectiveness = 2
+        elif opponent_type == "base":
+            type_effectiveness = 1
+        else:
+            raise ValueError("Invalid Pokemon type")
         return round(self.attack_damage * type_effectiveness)
 
     def get_defence(self) -> int:
@@ -191,13 +195,17 @@ class Bulbasaur(PokemonBase):
             Time: O(1)
             Space: O(1)
         """
-        type_effectiveness = 1
+
         if opponent_type == "fire":
             type_effectiveness = 0.5
         elif opponent_type == "water":
             type_effectiveness = 2
         elif opponent_type == "grass":
             type_effectiveness = 1
+        elif opponent_type == "base":
+            type_effectiveness = 1
+        else:
+            raise ValueError("Invalid Pokemon type")
         return round(self.attack_damage * type_effectiveness)
 
     def get_defence(self) -> int:
@@ -304,13 +312,17 @@ class Squirtle(PokemonBase):
             Time: O(1)
             Space: O(1)
         """
-        type_effectiveness = 1
+
         if opponent_type == "fire":
             type_effectiveness = 2
         elif opponent_type == "water":
             type_effectiveness = 1
         elif opponent_type == "grass":
             type_effectiveness = 0.5
+        elif opponent_type == "base":
+            type_effectiveness = 1
+        else:
+            raise ValueError("Invalid Pokemon type")
         return round(self.attack_damage * type_effectiveness)
 
     def get_defence(self) -> int:

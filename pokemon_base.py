@@ -160,7 +160,12 @@ class PokemonBase(ABC):
 
     def set_key(self, key: str) -> None:
         """
-        Sets a key for sorting the Pokemon team based on various attributes.
+        Sets a key for sorting the Pokemon team based on various attributes. The key is a composite value of the
+        Pokemon's selected attributes with its priority in the event of a tie. It is calculated as follows:
+        - primary_key = the value of the selected attribute
+        - pokemon_priority = the priority of the Pokemon in the team
+        - we multiply by negative one as the ArraySortedList used for sorting is in ascending order
+            (primary_key * 100  + pokemon_priority) * -1
 
         Args:
             key (str): A string representing the sorting category (e.g., 'lvl', 'hp').
@@ -173,13 +178,28 @@ class PokemonBase(ABC):
             Space: O(1)
         """
         valid_keys = ["lvl", "hp", "attack", "defence", "speed"]
-        key = key.lower()
-
-        if key not in valid_keys:
+        if key.lower() not in valid_keys:
             raise ValueError(f"Invalid key. Must be one of {valid_keys}")
+        elif key.lower() == "lvl":
+            primary_key = self.level
+        elif key.lower() == "hp":
+            primary_key = self.hp
+        elif key.lower() == "attack":
+            primary_key = self.get_attack_damage("base")
+        elif key.lower() == "defence":
+            primary_key = self.get_defence()
+        elif key.lower() == "speed":
+            primary_key = self.get_speed()
 
-        # Set the key based on the category
-        self.key = key
+        pokemon_priority_map = {"Charmander": 3, "Bulbasaur": 2, "Squirtle": 1, }
+        self.key = (primary_key * 10 + pokemon_priority_map[self.get_name()]) * -1
+
+    def update_key(self, criterion: str) -> None:
+        """
+        Updates the key value based on the current criterion.
+        :return:
+        """
+        self.set_key(criterion)
 
     def get_key(self) -> int:
         """
