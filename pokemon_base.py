@@ -49,7 +49,7 @@ class PokemonBase(ABC):
             Space: O(1)
         """
         if new_hp < 0:
-            raise ValueError("New HP must be non-negative.")
+            self.hp = 0
         self.hp = new_hp
 
     def lose_hp(self, lose_hp: int) -> None:
@@ -179,7 +179,7 @@ class PokemonBase(ABC):
             raise ValueError(f"Invalid key. Must be one of {valid_keys}")
 
         # Set the key based on the category
-        self.key = getattr(self, f"get_{key}")()
+        self.key = key
 
     def get_key(self) -> int:
         """
