@@ -2,18 +2,27 @@ from abc import ABC, abstractmethod
 
 
 class PokemonBase(ABC):
-    """Base Class for Creating a New Pokemon"""
+    """
+    Base class representing a generic Pokemon. This class provides a foundation for
+    different types of Pokemon with common attributes and behaviors.
+
+    Attributes:
+        hp (int): Health points of the Pokemon.
+        poke_type (str): Type of the Pokemon ('Fire', 'Water', or 'Grass').
+        level (int): Current level of the Pokemon.
+        key (int): A sorting key used for team organization based on various attributes.
+    """
 
     def __init__(self, hp: int, poke_type: str) -> None:
         """
         Initialize a new Pokemon with health points and type.
 
         Args:
-            hp (int): Health points of the Pokemon, must be positive.
-            poke_type (str): Type of the Pokemon, must be 'Fire', 'Water', or 'Grass'.
+            hp (int): Health points of the Pokemon. Must be positive.
+            poke_type (str): Type of the Pokemon. Must be one of 'Fire', 'Water', or 'Grass'.
 
         Raises:
-            ValueError: If hp is not positive or poke_type is invalid.
+            ValueError: If 'hp' is not positive or 'poke_type' is invalid.
 
         Complexity:
             Time: O(1)
@@ -31,22 +40,26 @@ class PokemonBase(ABC):
         self.key = None
 
     def get_hp(self) -> int:
-        """Return the HP of the Pokemon. Complexity: O(1)"""
+        """
+        Get the health points of the Pokemon.
+
+        Returns:
+            int: The current health points of the Pokemon.
+
+        Complexity:
+            Time: O(1)
+        """
         return self.hp
 
     def set_hp(self, new_hp: int) -> None:
         """
-        Set the HP of the Pokemon.
+        Set the health points of the Pokemon.
 
         Args:
-            new_hp (int): New HP value, must be non-negative.
-
-        Raises:
-            ValueError: If new_hp is negative.
+            new_hp (int): The new health points value for the Pokemon. Must be non-negative.
 
         Complexity:
             Time: O(1)
-            Space: O(1)
         """
         if new_hp < 0:
             self.hp = 0
@@ -54,17 +67,16 @@ class PokemonBase(ABC):
 
     def lose_hp(self, lose_hp: int) -> None:
         """
-        Reduces the Pokemon's HP.
+        Reduce the health points of the Pokemon.
 
         Args:
-            lose_hp (int): The amount of HP to be reduced.
+            lose_hp (int): The amount by which the Pokemon's health points should be reduced.
 
         Raises:
-            ValueError: If lose_hp is negative.
+            ValueError: If 'lose_hp' is negative.
 
         Complexity:
             Time: O(1)
-            Space: O(1)
         """
         if lose_hp < 0:
             raise ValueError("HP reduction must be non-negative.")
@@ -80,12 +92,17 @@ class PokemonBase(ABC):
 
         Complexity:
             Time: O(1)
-            Space: O(1)
         """
         return self.hp <= 0
 
     def get_level(self) -> int:
-        """Return the level of the Pokemon. Complexity: O(1)"""
+        """
+        Get the level of the Pokemon.
+
+        Returns:
+            int: The current level of the Pokemon.
+        Complexity:
+            Time: O(1)"""
         return self.level
 
     def set_level(self, new_level: int) -> None:
@@ -160,22 +177,20 @@ class PokemonBase(ABC):
 
     def set_key(self, key: str) -> None:
         """
-        Sets a key for sorting the Pokemon team based on various attributes. The key is a composite value of the
-        Pokemon's selected attributes with its priority in the event of a tie. It is calculated as follows:
-        - primary_key = the value of the selected attribute
-        - pokemon_priority = the priority of the Pokemon in the team
-        - we multiply by negative one as the ArraySortedList used for sorting is in ascending order
-            (primary_key * 100  + pokemon_priority) * -1
+        Set a sorting key for the Pokemon based on a specified attribute.
+
+        The sorting key is used for organizing Pokemon in a team based on the chosen attribute.
+        The key is a composite value calculated from the attribute and the Pokemon's inherent priority.
 
         Args:
-            key (str): A string representing the sorting category (e.g., 'lvl', 'hp').
+            key (str): A string representing the sorting category.
+                       Valid options are 'lvl', 'hp', 'attack', 'defence', 'speed'.
 
         Raises:
-            ValueError: If the key is not a valid sorting category.
+            ValueError: If the key is not one of the valid sorting categories.
 
         Complexity:
             Time: O(1)
-            Space: O(1)
         """
         valid_keys = ["lvl", "hp", "attack", "defence", "speed"]
         if key.lower() not in valid_keys:
@@ -196,13 +211,16 @@ class PokemonBase(ABC):
 
     def get_key(self) -> int:
         """
-        Returns the key used for sorting.
+        Get the current sorting key of the Pokemon.
 
+        Raise:
+            ValueError: If the Pokemon has not been assigned a sorting key.
         Returns:
-            int: The sorting key value.
+            int: The sorting key value, used for organizing the Pokemon in a team.
 
         Complexity:
             Time: O(1)
-            Space: O(1)
         """
+        if self.key is None:
+            raise ValueError("Pokemon has not been assigned a sorting key.")
         return self.key

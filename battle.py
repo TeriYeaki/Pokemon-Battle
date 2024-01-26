@@ -3,28 +3,90 @@ from pokemon_base import PokemonBase
 
 
 class Battle:
-    """Pokemon Battle Class"""
+    """
+    A class representing a Pokemon battle between two trainers.
+
+    Manages the entire battle process, including different battle modes,
+    and handling the outcome of each battle round.
+    """
 
     def __init__(self, trainer_one_name: str, trainer_two_name: str) -> None:
-        """Create a pokemon battle between two trainers"""
+        """
+        Initialize a Pokemon battle between two trainers.
+
+        Args:
+            trainer_one_name (str): Name of the first trainer.
+            trainer_two_name (str): Name of the second trainer.
+
+        Complexity:
+            Time: O(1)
+            Space: O(1)
+        """
         self.trainer1 = PokeTeam(trainer_one_name)
         self.trainer2 = PokeTeam(trainer_two_name)
         self.winner = None
 
     def set_mode_battle(self) -> str:
-        """Set the default mode for the pokemon battle"""
+        """
+        Initiate a battle in the default mode (mode 0).
+
+        Returns:
+            str: The name of the winning trainer or 'Draw'.
+
+        Complexity:
+            Time: O(N) - Depends on the number of rounds.
+        """
         return self._start_battle(0)
 
     def rotating_mode_battle(self) -> str:
-        """Set the rotating mode for the pokemon battle"""
+        """
+        Initiate a battle in rotating mode (mode 1).
+
+        Returns:
+            str: The name of the winning trainer or 'Draw'.
+
+        Complexity:
+            Time: O(N) - Depends on the number of rounds.
+        """
         return self._start_battle(1)
 
     def optimised_mode_battle(self, criterion_team1: str, criterion_team2: str) -> str:
-        """Set optimised mode for pokemon battle"""
+        """
+        Initiate a battle in optimised mode (mode 2) based on a chosen attribute.
+
+        Args:
+            criterion_team1 (str): The chosen attribute for sorting team 1.
+            criterion_team2 (str): The chosen attribute for sorting team 2.
+
+        Returns:
+            str: The name of the winning trainer or 'Draw'.
+
+        Complexity:
+            Time: O(N) - Depends on the number of rounds.
+        """
         return self._start_battle(2, criterion_team1, criterion_team2)
 
     def _start_battle(self, battle_mode: int, criterion_team1: str = None, criterion_team2: str = None) -> str:
-        """Begin battle sequence"""
+        """
+        Begin the battle sequence. It initiates the selected battle mode and start the round. It then begins by checking
+        if the winning condition is met. If not, it will continue the rounds and repeat until the winning condition is
+        met. First, it will get and assign current round fighter. Then, it will fight the battle. Finally, it will
+        process the battle after math.
+
+        Args:
+            battle_mode (int): The chosen battle mode (0, 1, or 2).
+            criterion_team1 (str, optional): Sorting criterion for team 1 in optimised mode.
+            criterion_team2 (str, optional): Sorting criterion for team 2 in optimised mode.
+
+        Returns:
+            str: The name of the winning trainer or 'Draw'.
+
+        Raises:
+            ValueError: If an invalid battle mode is selected or teams are not properly initialized.
+
+        Complexity:
+            Time: O(N) - Depends on the number of rounds and battle mode.
+        """
 
         # validate battle mode
         if battle_mode not in [0, 1, 2]:
@@ -97,7 +159,23 @@ class Battle:
 
     @staticmethod
     def _perform_attack(attacker: PokemonBase, defender: PokemonBase) -> int:
-        """Get the attack damage and process the attack"""
+        """
+        Calculate and apply the attack damage from one Pokemon to another.
+
+        Args:
+            attacker (PokemonBase): The attacking Pokemon.
+            defender (PokemonBase): The defending Pokemon.
+
+        Returns:
+            int: The amount of damage inflicted.
+
+        Raises:
+            Exception: If an error occurs during the attack.
+
+        Complexity:
+            Time: O(1)
+        """
+
         try:
             attack_damage = attacker.get_attack_damage(defender.get_poke_type())
             return defender.is_attacked_by(attack_damage)
@@ -106,7 +184,19 @@ class Battle:
 
     @staticmethod
     def _pokemon_lvlup_and_return(pokemon: PokemonBase, team: PokeTeam) -> None:
-        """Level up the pokemon and return it back to the team"""
+        """
+        Level up a Pokemon and return it to its team.
+
+        Args:
+            pokemon (PokemonBase): The Pokemon to level up.
+            team (PokeTeam): The team to which the Pokemon belongs.
+
+        Raises:
+            Exception: If an error occurs during leveling up or returning the Pokemon.
+
+        Complexity:
+            Time: O(1)
+        """
         try:
             pokemon.level_up()
             team.return_fighter(pokemon)

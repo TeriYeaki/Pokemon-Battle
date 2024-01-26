@@ -2,15 +2,24 @@ from pokemon_base import PokemonBase
 
 
 class Charmander(PokemonBase):
-    """Charmander Pokemon class, derived from PokemonBase."""
+    """
+    Charmander Pokemon class, derived from PokemonBase.
+
+    Represents a Charmander, a Fire-type Pokemon, with specific attributes
+    like attack damage, defense, and speed.
+    """
 
     def __init__(self, hp: int = 7, poke_type: str = "Fire") -> None:
         """
-        Initialize a Charmander Pokemon with default or specified HP and type.
+        Initialize a Charmander Pokemon with specified or default HP and type.
 
         Args:
-            hp (int): Health points of the Pokemon. Defaults to 7.
-            poke_type (str): Type of the Pokemon. Defaults to 'Fire'.
+            hp (int): Health points of the Charmander. Defaults to 7.
+            poke_type (str): Type of the Charmander. Defaults to 'Fire'.
+                             Must be one of 'Fire', 'Water', or 'Grass'.
+
+        Raises:
+            ValueError: If 'hp' is not positive or 'poke_type' is invalid.
 
         Complexity:
             Time: O(1)
@@ -31,33 +40,33 @@ class Charmander(PokemonBase):
 
         Complexity:
             Time: O(1)
-            Space: O(1)
         """
         return self.name
 
     def get_speed(self) -> int:
         """
-        Get the speed of the Pokemon.
+        Get the speed attribute of the Charmander.
 
         Returns:
-            int: The speed of the Pokemon.
+            int: The current speed of the Charmander.
 
         Complexity:
             Time: O(1)
-            Space: O(1)
         """
         return self.speed
 
     def is_attacked_by(self, damage_received: int) -> int:
         """
-        Process the damage received by the Pokemon from an attack.
+        Process the damage received by the Pokemon from an attack and return the value of the damage.
 
         Args:
             damage_received (int): The amount of damage received.
 
+        Returns:
+            int: The amount of damage received after factoring in the Pokemon's defence.
+
         Complexity:
             Time: O(1)
-            Space: O(1)
         """
         if damage_received > self.defence:
             super().set_hp(self.hp - damage_received)
@@ -68,17 +77,19 @@ class Charmander(PokemonBase):
 
     def get_attack_damage(self, opponent_type: str) -> int:
         """
-        Calculate the attack damage based on the opponent's type.
+        Calculate the attack damage by Charmander based on the opponent's type.
 
         Args:
-            opponent_type (str): The type of the opponent Pokemon.
+            opponent_type (str): The type of the opponent Pokemon. Valid types are 'fire', 'water', 'grass', and 'base'.
 
         Returns:
-            int: The calculated attack damage.
+            int: The calculated attack damage after factoring in type effectiveness.
+
+        Raises:
+            ValueError: If 'opponent_type' is not a valid Pokemon type.
 
         Complexity:
             Time: O(1)
-            Space: O(1)
         """
 
         if opponent_type == "fire":
@@ -102,7 +113,6 @@ class Charmander(PokemonBase):
 
         Complexity:
             Time: O(1)
-            Space: O(1)
         """
         return self.defence
 
@@ -115,21 +125,29 @@ class Charmander(PokemonBase):
 
         Complexity:
             Time: O(1)
-            Space: O(1)
         """
         return f"{self.name}'s HP = {self.hp} and level = {self.level}"
 
 
 class Bulbasaur(PokemonBase):
-    """Bulbasaur Pokemon class, derived from PokemonBase."""
+    """
+    Bulbasaur Pokemon class, derived from PokemonBase.
+
+    Represents a Bulbasaur, a Grass-type Pokemon, with attributes such as
+    attack damage, defense, and speed.
+    """
 
     def __init__(self, hp: int = 9, poke_type: str = "Grass") -> None:
         """
-        Initialize a Bulbasaur Pokemon with default or specified HP and type.
+        Initialize a Bulbasaur Pokemon with specified or default HP and type.
 
         Args:
-            hp (int): Health points of the Pokemon. Defaults to 9.
-            poke_type (str): Type of the Pokemon. Defaults to 'Grass'.
+            hp (int): Health points of the Bulbasaur. Defaults to 9.
+            poke_type (str): Type of the Bulbasaur. Defaults to 'Grass'.
+                             Must be one of 'Fire', 'Water', or 'Grass'.
+
+        Raises:
+            ValueError: If 'hp' is not positive or 'poke_type' is invalid.
 
         Complexity:
             Time: O(1)
@@ -150,7 +168,6 @@ class Bulbasaur(PokemonBase):
 
         Complexity:
             Time: O(1)
-            Space: O(1)
         """
         return self.name
 
@@ -163,20 +180,21 @@ class Bulbasaur(PokemonBase):
 
         Complexity:
             Time: O(1)
-            Space: O(1)
         """
         return self.speed
 
     def is_attacked_by(self, damage_received: int) -> int:
         """
-        Process the damage received by the Pokemon from an attack.
+        Process the damage received by the Pokemon from an attack and return the value of the damage.
 
         Args:
             damage_received (int): The amount of damage received.
 
+        Returns:
+            int: The amount of damage received after factoring in the Pokemon's defence.
+
         Complexity:
             Time: O(1)
-            Space: O(1)
         """
         if damage_received > self.defence + 5:
             super().set_hp(self.hp - damage_received)
@@ -192,12 +210,14 @@ class Bulbasaur(PokemonBase):
         Args:
             opponent_type (str): The type of the opponent Pokemon.
 
+        Raise:
+            ValueError: If 'opponent_type' is not a valid Pokemon type.
+
         Returns:
             int: The calculated attack damage.
 
         Complexity:
             Time: O(1)
-            Space: O(1)
         """
 
         if opponent_type == "fire":
@@ -221,7 +241,6 @@ class Bulbasaur(PokemonBase):
 
         Complexity:
             Time: O(1)
-            Space: O(1)
         """
         return self.defence
 
@@ -234,21 +253,29 @@ class Bulbasaur(PokemonBase):
 
         Complexity:
             Time: O(1)
-            Space: O(1)
         """
         return f"{self.name}'s HP = {self.hp} and level = {self.level}"
 
 
 class Squirtle(PokemonBase):
-    """Squirtle Pokemon class, derived from PokemonBase."""
+    """
+    Squirtle Pokemon class, derived from PokemonBase.
+
+    Represents a Squirtle, a Water-type Pokemon, characterized by specific
+    attack damage, defense, and speed attributes.
+    """
 
     def __init__(self, hp: int = 8, poke_type: str = "Water") -> None:
         """
-        Initialize a Squirtle Pokemon with default or specified HP and type.
+        Initialize a Squirtle Pokemon with specified or default HP and type.
 
         Args:
-            hp (int): Health points of the Pokemon. Defaults to 8.
-            poke_type (str): Type of the Pokemon. Defaults to 'Water'.
+            hp (int): Health points of the Squirtle. Defaults to 8.
+            poke_type (str): Type of the Squirtle. Defaults to 'Water'.
+                             Must be one of 'Fire', 'Water', or 'Grass'.
+
+        Raises:
+            ValueError: If 'hp' is not positive or 'poke_type' is invalid.
 
         Complexity:
             Time: O(1)
@@ -269,7 +296,6 @@ class Squirtle(PokemonBase):
 
         Complexity:
             Time: O(1)
-            Space: O(1)
         """
         return self.name
 
@@ -282,20 +308,21 @@ class Squirtle(PokemonBase):
 
         Complexity:
             Time: O(1)
-            Space: O(1)
         """
         return self.speed
 
     def is_attacked_by(self, damage_received: int) -> int:
         """
-        Process the damage received by the Pokemon from an attack.
+        Process the damage received by the Pokemon from an attack and return the value of the damage.
 
         Args:
             damage_received (int): The amount of damage received.
 
+        Returns:
+            int: The amount of damage received after factoring in the Pokemon's defence.
+
         Complexity:
             Time: O(1)
-            Space: O(1)
         """
         if damage_received > self.defence * 2:
             super().set_hp(self.hp - damage_received)
@@ -310,6 +337,9 @@ class Squirtle(PokemonBase):
 
         Args:
             opponent_type (str): The type of the opponent Pokemon.
+
+        Raise:
+            ValueError: If 'opponent_type' is not a valid Pokemon type.
 
         Returns:
             int: The calculated attack damage.
@@ -353,7 +383,6 @@ class Squirtle(PokemonBase):
 
         Complexity:
             Time: O(1)
-            Space: O(1)
         """
         return f"{self.name}'s HP = {self.hp} and level = {self.level}"
 
