@@ -79,11 +79,11 @@ class Charmander(PokemonBase):
             Space: O(1)
         """
         type_effectiveness = 1
-        if opponent_type == "Fire":
+        if opponent_type == "fire":
             type_effectiveness = 1
-        elif opponent_type == "Water":
+        elif opponent_type == "water":
             type_effectiveness = 0.5
-        elif opponent_type == "Grass":
+        elif opponent_type == "grass":
             type_effectiveness = 2
         return round(self.attack_damage * type_effectiveness)
 
@@ -192,11 +192,11 @@ class Bulbasaur(PokemonBase):
             Space: O(1)
         """
         type_effectiveness = 1
-        if opponent_type == "Fire":
+        if opponent_type == "fire":
             type_effectiveness = 0.5
-        elif opponent_type == "Water":
+        elif opponent_type == "water":
             type_effectiveness = 2
-        elif opponent_type == "Grass":
+        elif opponent_type == "grass":
             type_effectiveness = 1
         return round(self.attack_damage * type_effectiveness)
 
@@ -305,11 +305,11 @@ class Squirtle(PokemonBase):
             Space: O(1)
         """
         type_effectiveness = 1
-        if opponent_type == "Fire":
+        if opponent_type == "fire":
             type_effectiveness = 2
-        elif opponent_type == "Water":
+        elif opponent_type == "water":
             type_effectiveness = 1
-        elif opponent_type == "Grass":
+        elif opponent_type == "grass":
             type_effectiveness = 0.5
         return round(self.attack_damage * type_effectiveness)
 
