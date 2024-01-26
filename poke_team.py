@@ -184,7 +184,7 @@ class PokeTeam:
 
         elif self.battle_mode == 2:
             # get the member info from the team
-            for index in range(len(self.team)):
-                member_details.append(str(self.team[index]))
+            for member in self.team:
+                member_details.append(str(member.value))
 
         return ", ".join(member_details) + "\n"
