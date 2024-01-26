@@ -26,10 +26,6 @@ class Battle:
     def _start_battle(self, battle_mode: int, criterion_team1: str = None, criterion_team2: str = None) -> str:
         """Begin battle sequence"""
 
-        # Validate team composition
-        if self.trainer1.get_team() is None or self.trainer2.get_team() is None:
-            raise ValueError("Teams are not properly initialized.")
-
         # validate battle mode
         if battle_mode not in [0, 1, 2]:
             raise ValueError("Invalid battle mode. Please select 0, 1, or 2")
@@ -38,6 +34,10 @@ class Battle:
         self.trainer1.choose_team(battle_mode, criterion_team1)
         self.trainer2.choose_team(battle_mode, criterion_team2)
         round_num = 1
+
+        # Validate team composition
+        if self.trainer1.get_team() is None or self.trainer2.get_team() is None:
+            raise ValueError("Teams are not properly initialized.")
 
         # continue the fight until all pokemon from one team is fainted
         while True:
@@ -80,7 +80,7 @@ class Battle:
                 self._pokemon_lvlup_and_return(t1_pokemon, self.trainer1)
                 self._pokemon_lvlup_and_return(t2_pokemon, self.trainer2)
                 print(
-                    f"Round {round_num}: {self.trainer1.get_name()}'s {t1_pokemon.get_name()} attack " +
+                    f"Round {round_num}: {self.trainer1.get_name()}'s {t1_pokemon.get_name()} fight " +
                     f"{self.trainer2.get_name()}'s {t2_pokemon.get_name()} and they and both live")
             elif t1_pokemon.is_fainted():
                 self._pokemon_lvlup_and_return(t2_pokemon, self.trainer2)
@@ -101,7 +101,7 @@ class Battle:
             attack_damage = attacker.get_attack_damage(defender.get_poke_type())
             defender.is_attacked_by(attack_damage)
         except Exception as e:
-            print(f"An error occurred during attack: {e}")
+            raise Exception(f"An error occurred during attack: {e}")
 
     @staticmethod
     def _pokemon_lvlup_and_return(pokemon: PokemonBase, team: PokeTeam) -> None:
