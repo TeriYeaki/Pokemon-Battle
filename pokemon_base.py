@@ -31,7 +31,7 @@ class PokemonBase(ABC):
 
         if hp <= 0:
             raise ValueError("Pokemon HP must be a positive integer.")
-        if poke_type.lower() not in ["fire", "water", "grass"]:
+        if poke_type.lower() not in ["fire", "water", "grass", "glitch"]:
             raise ValueError("Invalid pokemon type. Must be 'Fire', 'Water', or 'Grass'.")
 
         self.hp = hp
@@ -206,7 +206,7 @@ class PokemonBase(ABC):
         elif key.lower() == "speed":
             primary_key = self.get_speed()
 
-        pokemon_priority_map = {"Charmander": 3, "Bulbasaur": 2, "Squirtle": 1, }
+        pokemon_priority_map = {"Charmander": 3, "Bulbasaur": 2, "Squirtle": 1, "MissingNo": 0}
         self.key = (primary_key * 10 + pokemon_priority_map[self.get_name()]) * -1
 
     def get_key(self) -> int:

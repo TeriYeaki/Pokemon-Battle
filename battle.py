@@ -103,6 +103,12 @@ class Battle:
         # continue the fight until all pokemon from one team is fainted
         while True:
 
+            # Activate glitchmon if team is empty
+            if self.trainer1.is_empty() and self.trainer1.have_glitchmon():
+                self.trainer1.activate_glitchmon()
+            if self.trainer2.is_empty() and self.trainer2.have_glitchmon():
+                self.trainer2.activate_glitchmon()
+
             # set the battle ending condition
             if self.trainer1.is_empty() and self.trainer2.is_empty():
                 return "Draw"

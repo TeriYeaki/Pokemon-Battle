@@ -1,4 +1,4 @@
-from pokemon import Charmander, Bulbasaur, Squirtle
+from pokemon import Charmander, Bulbasaur, Squirtle, MissingNo
 from pokemon_base import PokemonBase
 from array_sorted_list import ArraySortedList
 from stack_adt import ArrayStack
@@ -36,6 +36,7 @@ class PokeTeam:
         self.battle_mode = 0
         self.criterion = None
         self.team = None
+        self.glitchmon = None
 
     def get_name(self) -> str:
         """
@@ -103,21 +104,29 @@ class PokeTeam:
                 team_input = input(f"Howdy {self.trainer_name}! Choose your team as C B S\n"
                                    "where C is the number of Charmanders,\n"
                                    "      B is the number of Bulbasaurs,\n"
-                                   "      S is the number of Squirtles\n> ").strip()
+                                   "      S is the number of Squirtles,\n"
+                                   "      G is the number of GlitchMon\n> ").strip()
 
                 # Parse and validate input
-                charmanders, bulbasaurs, squirtles = map(int, team_input.split())
-                if charmanders < 0 or bulbasaurs < 0 or squirtles < 0:
+                charmanders, bulbasaurs, squirtles, missingno = map(int, team_input.split())
+                if charmanders < 0 or bulbasaurs < 0 or squirtles < 0 or missingno < 0:
                     print("Invalid input. Numbers must be non-negative.")
                     continue
 
-                total_pokemon = charmanders + bulbasaurs + squirtles
+                if missingno > 1:  # Only one GlitchMon allowed
+                    print("Invalid input. Only maximum of one GlitchMon allowed.")
+                    continue
+
+                total_pokemon = charmanders + bulbasaurs + squirtles + missingno
                 if self.LIMIT >= total_pokemon > 0:
                     valid_input = True
                 else:
                     print(f"Invalid input. Total number of Pokemon must be between 1 and {self.LIMIT}.\n")
             except (ValueError, TypeError):
-                print("Invalid input. Please enter three integers separated by spaces.\n")
+                print("Invalid input. Please enter four integers separated by spaces.\n")
+
+            if missingno == 1:
+                self.glitchmon = MissingNo()
 
         self.assign_team(charmanders, bulbasaurs, squirtles)
 
@@ -223,6 +232,38 @@ class PokeTeam:
             self.team.add(ListItem(fighter, fighter.get_key()))
         else:
             raise ValueError("Invalid battle mode. Please input integer 0, 1, or 2.")
+
+    def have_glitchmon(self) -> bool:
+        """
+        Check if the team has a glitchmon
+
+        Returns:
+            bool: True if the team has a glitchmon, False otherwise.
+        """
+        if self.glitchmon is None:
+            return False
+        return True
+
+    def activate_glitchmon(self) -> None:
+        """
+        Activate the special Pokemon in the team.
+        """
+        print(f"{self.trainer_name}'s team is empty, activating GlitchMon...")
+        if self.glitchmon is None:
+            raise ValueError("No Glitchmon Pokemon in team.")
+
+        if not self.team.is_empty() and self.glitchmon is not None:
+            raise ValueError("Team is not empty. Cannot activate GlitchMon.")
+        else:
+            if self.battle_mode == 0:
+                self.team.push(self.glitchmon)
+            elif self.battle_mode == 1:
+                self.team.append(self.glitchmon)
+            elif self.battle_mode == 2:
+                self.glitchmon.set_key(self.criterion)
+                self.team.add(ListItem(self.glitchmon, self.glitchmon.get_key()))
+
+        self.glitchmon = None
 
     def __str__(self) -> str:
         """
