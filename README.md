@@ -17,6 +17,8 @@ providing players with initial Pokémon choices.
 and ADT-based team selection.
 - **Battle Mechanics**: Developed battle.py to handle the game's battle logic, offering three distinct battle modes: 
 set mode, rotating mode, and optimized mode.
+- **Add Additional Pokemon**: Extend to add a new type of pokemon to the game that is a different type from the existing
+ones with special ability.
 
 ## Learning Outcomes 🧠
 - **Class Inheritance and OOP Principles**: Gained proficiency in using class inheritance, abstract methods, super() 
