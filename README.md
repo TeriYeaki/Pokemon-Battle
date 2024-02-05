@@ -46,14 +46,26 @@ experience.
 improving code readability and maintainability.
 
 ## Getting Started 🚦
-- You can `fork` the repository to your GitHub account or `clone` it directly to your local machine. Once you have a copy 
-of the project, you can run it locally on your machine. 
+- You can `fork` the repository to your GitHub account or `clone` it directly to your local machine. Once you have a 
+copy of the project, you can run it locally on your machine. 
 
 - The project does not have a file to run the game, as it only stores the logic of the game. The entry point of the game
 is the `battle.py` class. Please create a new `Battle (trainer_one_name: str, trainer_two_name: str)` object and then 
-either `set_mode_battle()`, `rotating_mode_battle()`, or `optimized_mode_battle()` to start the game in desired mode. 
+use either `set_mode_battle()`, `rotating_mode_battle()`, or `optimized_mode_battle()` method to start the game in 
+desired mode. 
 
-## Contributions
-As this is a university assignment, multiple students had contributed to the project which I have derived from and 
-improved upon. To protect the integrity of the assignment and the students' privacy, the names of the contributors 
-will not be disclosed.
+## Contributing
+This project is closed to contributions as it is a university assignment. However, you are welcome to `fork` the project
+and make any changes you see fit and continue to develop it into a full-fledged game.
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. Please note that this 
+project has been submitted to the university database. It is intended solely as an educational resource and should not 
+be submitted as your own work. By submitting this project as your own, you accept full responsibility for any 
+consequences that may arise.
+
+
+## Authors and acknowledgment
+As this is a university assignment, multiple students including myself had contributed to the project which I have 
+derived from and improved upon. To protect the integrity of the assignment and the students' privacy, the names of the 
+contributors will not be disclosed.
