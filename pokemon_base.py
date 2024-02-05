@@ -63,7 +63,8 @@ class PokemonBase(ABC):
         """
         if new_hp < 0:
             self.hp = 0
-        self.hp = new_hp
+        else:
+            self.hp = new_hp
 
     def lose_hp(self, lose_hp: int) -> None:
         """
