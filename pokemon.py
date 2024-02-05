@@ -101,7 +101,7 @@ class Charmander(PokemonBase):
             type_effectiveness = 0.5
         elif opponent_type == "grass":
             type_effectiveness = 2
-        elif opponent_type == "base" or "glitch":
+        elif opponent_type == "base" or opponent_type == "glitch":
             type_effectiveness = 1
         else:
             raise ValueError("Invalid Pokemon type")
@@ -229,7 +229,7 @@ class Bulbasaur(PokemonBase):
             type_effectiveness = 2
         elif opponent_type == "grass":
             type_effectiveness = 1
-        elif opponent_type == "base" or "glitch":
+        elif opponent_type == "base" or opponent_type == "glitch":
             type_effectiveness = 1
         else:
             raise ValueError("Invalid Pokemon type")
@@ -358,7 +358,7 @@ class Squirtle(PokemonBase):
             type_effectiveness = 1
         elif opponent_type == "grass":
             type_effectiveness = 0.5
-        elif opponent_type == "base" or "glitch":
+        elif opponent_type == "base" or opponent_type == "glitch":
             type_effectiveness = 1
         else:
             raise ValueError("Invalid Pokemon type")
